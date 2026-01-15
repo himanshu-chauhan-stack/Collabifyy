@@ -66,11 +66,6 @@ export default function HomePage() {
   }
 
   if (!waitlistData) {
-<<<<<<< HEAD
-    // If authenticated but no waitlist profile, redirect to dashboard/waitlist selection
-    setLocation("/dashboard");
-    return null;
-=======
     return (
       <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
         <div className="pointer-events-none absolute -left-32 top-10 h-64 w-64 rounded-full bg-primary/25 blur-3xl" />
@@ -84,7 +79,6 @@ export default function HomePage() {
         </Card>
       </div>
     );
->>>>>>> 5f3de75ab183b82d4bf537ba80012103526b0b2d
   }
 
   const initials = waitlistData.name
