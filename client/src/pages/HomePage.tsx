@@ -66,9 +66,25 @@ export default function HomePage() {
   }
 
   if (!waitlistData) {
+<<<<<<< HEAD
     // If authenticated but no waitlist profile, redirect to dashboard/waitlist selection
     setLocation("/dashboard");
     return null;
+=======
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
+        <div className="pointer-events-none absolute -left-32 top-10 h-64 w-64 rounded-full bg-primary/25 blur-3xl" />
+        <div className="pointer-events-none absolute right-10 bottom-20 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
+        <Card className="backdrop-blur-md bg-card/80 border border-white/10 shadow-2xl max-w-md relative z-10">
+          <CardContent className="pt-12 pb-12 text-center">
+            <p className="text-muted-foreground">
+              No profile found. Please join the waitlist first.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+>>>>>>> 5f3de75ab183b82d4bf537ba80012103526b0b2d
   }
 
   const initials = waitlistData.name

@@ -7,6 +7,7 @@ import HomePage from "@/pages/HomePage";
 import WaitlistPage from "@/pages/WaitlistPage";
 import AuthPage from "@/pages/AuthPage";
 import DashboardPage from "@/pages/DashboardPage";
+<<<<<<< HEAD
 import { AuthProvider } from "@/hooks/useAuth";
 
 function Router() {
@@ -19,6 +20,23 @@ function Router() {
             <Route component={NotFound} />
         </Switch>
     );
+=======
+import WaitlistPage from "@/pages/WaitlistPage";
+import NotFound from "@/pages/not-found";
+import HomePage from "@/pages/HomePage"
+
+function Router() {
+  return (
+    <Switch>
+      <Route path="/" component={LandingPage} />
+      <Route path="/auth" component={AuthPage} />
+      <Route path="/dashboard" component={DashboardPage} />
+      <Route path="/waitlist" component={WaitlistPage} />
+      <Route path="/home" component={HomePage} />
+      <Route component={NotFound} />
+    </Switch>
+  );
+>>>>>>> 5f3de75ab183b82d4bf537ba80012103526b0b2d
 }
 
 function App() {
