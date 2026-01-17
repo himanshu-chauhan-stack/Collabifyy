@@ -2,7 +2,6 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
@@ -12,6 +11,11 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
+
+// ✅ BACKEND URL (important for Google OAuth)
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL ||
+  "https://collabifyy-gg0g.onrender.com";
 
 export default function WaitlistPage() {
   const [, setLocation] = useLocation();
@@ -80,12 +84,16 @@ export default function WaitlistPage() {
     );
   }
 
-  // 🔒 Not authenticated → show CTA, DO NOT auto-redirect
+  // 🔒 Not authenticated → show CTA (NO auto redirect)
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <p className="text-lg font-medium">Please sign in to join the waitlist</p>
-        <Button onClick={() => (window.location.href = "/api/login")}>
+        <Button
+          onClick={() => {
+            window.location.href = `${BACKEND_URL}/api/login`;
+          }}
+        >
           Sign in with Google
         </Button>
       </div>
