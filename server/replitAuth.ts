@@ -23,6 +23,8 @@ export function getSession() {
     tableName: "sessions",
   });
 
+  const isProduction = process.env.NODE_ENV === "production";
+  
   return session({
     name: "collabifyy.sid",
     secret: process.env.SESSION_SECRET!,
@@ -31,8 +33,8 @@ export function getSession() {
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: true,      // 🔒 REQUIRED (DO NOT CHANGE)
-      sameSite: "none",  // 🌍 REQUIRED (DO NOT CHANGE)
+      secure: isProduction,      // 🔒 true in production (HTTPS), false in dev (HTTP)
+      sameSite: isProduction ? "none" : "lax",  // 🌍 "none" for cross-domain in prod, "lax" for local dev
       maxAge: sessionTtl,
     },
   });
@@ -113,14 +115,22 @@ export async function setupAuth(app: Express) {
     }
   );
 
-  // Logout
-  app.get("/api/logout", (req, res) => {
+  // Logout - supports both GET (for direct links) and POST (for API calls)
+  const handleLogout = (req: any, res: any) => {
     req.logout(() => {
       req.session.destroy(() => {
-        res.redirect(process.env.FRONTEND_URL || "/");
+        // For POST requests, return JSON; for GET, redirect
+        if (req.method === "POST") {
+          res.json({ message: "Logged out successfully" });
+        } else {
+          res.redirect(process.env.FRONTEND_URL || "/");
+        }
       });
     });
-  });
+  };
+  
+  app.get("/api/logout", handleLogout);
+  app.post("/api/logout", handleLogout);
 }
 
 /**

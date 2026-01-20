@@ -19,7 +19,7 @@ export default function AuthPage() {
   // ✅ OAuth MUST be full page redirect
   const handleGoogleSignIn = () => {
     const backend =
-      import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+      import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
 
     const params = userType ? `?type=${userType}` : "";
 
